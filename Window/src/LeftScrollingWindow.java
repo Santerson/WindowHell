@@ -27,6 +27,7 @@ public class LeftScrollingWindow extends MovingWindow {
 		int randomY = (int)(Math.random() * (MovingWindow.BOTTOM_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(MovingWindow.RIGHT_EDGE_OF_SCREEN, randomY);
 		this.window.setVisible(true);
+		this.window.setBackground(super.COLORS[score]);
 		x = MovingWindow.RIGHT_EDGE_OF_SCREEN;
 		y = randomY;
 		super.window.setSize(super.getLength(), super.getWidth());

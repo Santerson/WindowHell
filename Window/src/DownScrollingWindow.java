@@ -27,6 +27,7 @@ public class DownScrollingWindow extends MovingWindow {
 		int randomX = (int)(Math.random() * (MovingWindow.RIGHT_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(randomX, TOP_EDGE_OF_SCREEN - 400);
 		this.window.setVisible(true);
+		this.window.setBackground(super.COLORS[score]);
 		x = randomX;
 		y = TOP_EDGE_OF_SCREEN - 400;
 		super.window.setSize(super.getLength(), super.getWidth());

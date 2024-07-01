@@ -27,6 +27,7 @@ public class UpScrollingWindow extends MovingWindow {
 		int randomX = (int)(Math.random() * (MovingWindow.RIGHT_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(randomX, BOTTOM_EDGE_OF_SCREEN);
 		this.window.setVisible(true);
+		this.window.setBackground(super.COLORS[score]);
 		x = randomX;
 		y = BOTTOM_EDGE_OF_SCREEN;
 		super.window.setSize(super.getLength(), super.getWidth());

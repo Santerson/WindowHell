@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MovingWindow {
 
@@ -7,6 +8,7 @@ public class MovingWindow {
 	public static final int LEFT_EDGE_OF_SCREEN = 0;
 	public static final int TOP_EDGE_OF_SCREEN = 0;
 	public static final int BOTTOM_EDGE_OF_SCREEN = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+	public final Color[] COLORS = new Color[]{Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.MAGENTA, Color.gray, Color.black};
 	
 	protected JFrame window;
 	private int length;
@@ -15,10 +17,12 @@ public class MovingWindow {
 	
 	public MovingWindow(int length, int width, int speed) {
 		
-		JFrame window = new JFrame("NEWM");
+		JFrame window = new JFrame("DONT TOUCH");
+		window.setUndecorated(true);
+		window.setAlwaysOnTop(true);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setLocationRelativeTo(null);
-		window.getContentPane().setBackground(Color.RED);
+		window.getContentPane().setBackground(COLORS[Game.gamePhase]);
 		window.setSize(length, width);
 		this.window = window;
 		
