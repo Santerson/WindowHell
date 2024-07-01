@@ -11,7 +11,7 @@ public class DownScrollingWindow extends MovingWindow {
 	public DownScrollingWindow(int scrollSpeed, int length, int width) {
 		super(length, width, scrollSpeed);
 		speed = scrollSpeed;
-		spawnWindow();
+		spawnWindow(0);
 	}
 	
 	public int getX() {
@@ -30,7 +30,7 @@ public class DownScrollingWindow extends MovingWindow {
 		x = randomX;
 		y = TOP_EDGE_OF_SCREEN - 400;
 		super.window.setSize(super.getLength(), super.getWidth());
-		speed = (int)(Math.random() * 10 + 5);
+		speed = calcSpeed(score);
 	}
 	
 	public void scrollWindow() {

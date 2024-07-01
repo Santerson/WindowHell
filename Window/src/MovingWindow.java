@@ -31,7 +31,7 @@ public class MovingWindow {
 		return (int)(Math.random() * 500 + 100);
 	}
 	
-	public void spawnWindow() {
+	public void spawnWindow(int score) {
 		
 	}
 	
@@ -69,5 +69,9 @@ public class MovingWindow {
 	
 	public void changeSize(int changing, int constant) {
 		
+	}
+	
+	public static int calcSpeed(int phase) {
+		return (int) ((Math.random() * 10 + 5 + (phase * 8)) * .5);
 	}
 }

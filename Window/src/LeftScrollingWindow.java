@@ -11,7 +11,7 @@ public class LeftScrollingWindow extends MovingWindow {
 	public LeftScrollingWindow(int scrollSpeed, int length, int width) {
 		super(length, width, scrollSpeed);
 		speed = scrollSpeed;
-		spawnWindow();
+		spawnWindow(0);
 	}
 	
 	public int getX() {
@@ -30,7 +30,7 @@ public class LeftScrollingWindow extends MovingWindow {
 		x = MovingWindow.RIGHT_EDGE_OF_SCREEN;
 		y = randomY;
 		super.window.setSize(super.getLength(), super.getWidth());
-		speed = (int)(Math.random() * 20 + 5);
+		speed = calcSpeed(score);
 	}
 	
 	public void scrollWindow() {

@@ -3,7 +3,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 
-public class ScrollingWindow {
+public class OLDScrollingWindow {
 	
 	//Constants
 	public static final int edgeOfScreen = 2560;
