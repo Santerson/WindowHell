@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
@@ -27,16 +28,17 @@ public class Game{
 		boolean ded = false; //checks whether the game is lost
 		int score = 0; //score
 		int phase = 0;
+		gamePhase = 0;
 				
 		//creating windows
-		windows.add(new LeftScrollingWindow(10, 300, MovingWindow.screenSizeChange()));
-		windows.add(new RightScrollingWindow(10, 300, MovingWindow.screenSizeChange()));
-		windows.add(new DownScrollingWindow(10, MovingWindow.screenSizeChange(), 200));
-		windows.add(new UpScrollingWindow(10, MovingWindow.screenSizeChange(), 200));
-		windows.add(new LeftScrollingWindow(10, 300, MovingWindow.screenSizeChange()));
-		windows.add(new RightScrollingWindow(10, 300, MovingWindow.screenSizeChange()));
-		windows.add(new DownScrollingWindow(10, MovingWindow.screenSizeChange(), 200));
-		windows.add(new UpScrollingWindow(10, MovingWindow.screenSizeChange(), 200));
+		windows.add(new LeftScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+		windows.add(new RightScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+		windows.add(new DownScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+		windows.add(new UpScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+		windows.add(new LeftScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+		windows.add(new RightScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+		windows.add(new DownScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+		windows.add(new UpScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
 		
 		//Creating score counter (after the windows so it is on top of them)
 		JFrame scoreCounter = new JFrame("Score"); //window
@@ -48,18 +50,41 @@ public class Game{
 		JLabel scoreDisplay = new JLabel("Score: " + score + " | Phase: " + phase, SwingConstants.CENTER); //text
 		scoreDisplay.setFont(new Font("Courier", Font.BOLD, 35));
 		scoreCounter.setAlwaysOnTop(true);
-		scoreCounter.getContentPane().add(scoreDisplay, BorderLayout.CENTER);
 		scoreCounter.setVisible(true);
+		scoreCounter.getContentPane().add(scoreDisplay, BorderLayout.CENTER);
+		
+		
+		JFrame background = new JFrame("Background");
+		background.setUndecorated(true);
+		background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		background.setLocation(new Point(0, 0));
+		background.setSize(new Dimension(MovingWindow.RIGHT_EDGE_OF_SCREEN, MovingWindow.BOTTOM_EDGE_OF_SCREEN));
+		background.setBackground(new Color(50, 255, 184, 50));
 		
 		//game time loop
 		while (!ded) {
 			//Every window moves its speed amount of pixels, then checks if it is touching an edge, and then checks if it is touching the mouse
-			for (MovingWindow current : windows) {
+			for (int i = 0; i < windows.size(); i++) {
+				MovingWindow current = windows.get(i);
 				gamePhase = phase;
 				current.scrollWindow();
 				if (current.touchingEdge()) {
-					current.changeSize(MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange());
-					current.spawnWindow(phase);
+					if (current instanceof UpScrollingWindow) {
+						windows.get(i).hideWindow();
+						windows.set(i, new UpScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+					}
+					else if (current instanceof DownScrollingWindow) {
+						windows.get(i).hideWindow();
+						windows.set(i, new DownScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+					}
+					else if (current instanceof RightScrollingWindow) {
+						windows.get(i).hideWindow();
+						windows.set(i, new RightScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+					}
+					else if (current instanceof LeftScrollingWindow) {
+						windows.get(i).hideWindow();
+						windows.set(i, new LeftScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
+					}
 				}
 				if (current.checkForDead()) {
 					ded = true;
@@ -67,6 +92,20 @@ public class Game{
 				}
 			}
 			phase = (int)(score / 1000);
+			if (score % 1000 < 10 && phase != 0) {
+				if (!background.isVisible())background.setVisible(true);
+
+			}
+			else if (score % 1000 < 20){
+				if (background.isVisible())background.setVisible(false);
+				}
+			else if (score % 1000 < 30 && phase != 0) {
+				if (!background.isVisible())background.setVisible(true);
+
+			}
+			else {
+				if (background.isVisible())background.setVisible(false);
+				}
 			//Updates score and slows game speed
 			try {
 				if (!ded) {

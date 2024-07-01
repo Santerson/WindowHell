@@ -23,15 +23,13 @@ public class RightScrollingWindow extends MovingWindow {
 	}
 	
 	public void spawnWindow(int score) {
-		super.setWidth((int)(Math.random() * 500 + 200));
 		int randomY = (int)(Math.random() * (MovingWindow.BOTTOM_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(MovingWindow.LEFT_EDGE_OF_SCREEN - super.getWidth(), randomY);
 		this.window.setVisible(true);
 		this.window.setBackground(super.COLORS[score]);
-		x = MovingWindow.LEFT_EDGE_OF_SCREEN - super.getWidth();
+		x = MovingWindow.LEFT_EDGE_OF_SCREEN - super.getLength();
 		y = randomY;
 		super.window.setSize(super.getLength(), super.getWidth());
-		speed = calcSpeed(score);
 	}
 	
 	public void scrollWindow() {
@@ -40,7 +38,7 @@ public class RightScrollingWindow extends MovingWindow {
 	}
 	
 	public boolean touchingEdge() {
-		if (x >= RIGHT_EDGE_OF_SCREEN + 10) return true;
+		if (x >= RIGHT_EDGE_OF_SCREEN) return true;
 		return false;
 	}
 	

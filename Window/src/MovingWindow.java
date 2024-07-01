@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.colorchooser.ColorSelectionModel;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -13,7 +15,6 @@ public class MovingWindow {
 	protected JFrame window;
 	private int length;
 	private int width;
-	private int speed;
 	
 	public MovingWindow(int length, int width, int speed) {
 		
@@ -28,7 +29,6 @@ public class MovingWindow {
 		
 		this.length = length;
 		this.width = width;
-		this.speed = speed;
 	}
 	
 	public static int screenSizeChange() {
@@ -76,6 +76,10 @@ public class MovingWindow {
 	}
 	
 	public static int calcSpeed(int phase) {
-		return (int) ((Math.random() * 10 + 5 + (phase * 8)) * .5);
+		return (int) ((Math.random() * 10 + (5 + (phase * 8))) * .5);
+	}
+	
+	public void setWindowColor(Color color) {
+		window.setBackground(color);
 	}
 }

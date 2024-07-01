@@ -34,8 +34,8 @@ public class Menus {
 		playMenu.setPreferredSize(new Dimension(1000, 800));
 		playMenu.setLocationRelativeTo(null);
 		playMenu.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 500, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 400));
-		JButton playButton = new JButton("BEGIN");
-		playButton.setFont(new Font("Courier", Font.BOLD, 180));
+		JButton playButton = new JButton("START");
+		playButton.setFont(new Font("Courier", Font.BOLD, 220));
 		playButton.setForeground(new Color(71, 12, 1, 255));
 		playMenu.add(playButton);
 		playMenu.pack();
@@ -119,14 +119,15 @@ public class Menus {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				playButton.setFont(new Font("Courier", Font.BOLD, 200));
+				playButton.setFont(new Font("Courier", Font.BOLD, 240));
 				playButton.setForeground(new Color(133, 22, 0, 255));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				playButton.setFont(new Font("Courier", Font.BOLD, 180));
+				playButton.setFont(new Font("Courier", Font.BOLD, 220));
 				playButton.setForeground(new Color(71, 12, 1, 255));
+				playButton.setBackground(null);
 			}
 		});
 		
@@ -253,6 +254,8 @@ public class Menus {
 				try (final DataOutputStream dos = new DataOutputStream(new FileOutputStream(highPhaseFile))){
 					dos.writeInt(newPhase);
 				}catch (Exception e) {}
+				highestScore = newScore;
+				highestPhase = newPhase;
 			}
 		}
 	}
