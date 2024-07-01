@@ -65,8 +65,8 @@ public class Game{
 					ded = true;
 					break;
 				}
-				phase = (int)(score / 1000);
 			}
+			phase = (int)(score / 1000);
 			//Updates score and slows game speed
 			try {
 				if (!ded) {
