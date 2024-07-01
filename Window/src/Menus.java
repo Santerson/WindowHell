@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
@@ -24,20 +25,31 @@ public class Menus {
 		
 		fetchHighScores();
 
-		//Menu
-		JFrame menu = new JFrame("Select an option");
-		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		menu.setPreferredSize(new Dimension(600, 300));
-		menu.setLocationRelativeTo(null);
-		menu.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 300, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 150));
-		JPanel panel = new JPanel();
-		JButton playButton = new JButton("Play");
-		playButton.setFont(new Font("Courier", Font.BOLD, 12));
-		panel.add(playButton);
-		menu.add(panel);
-		menu.pack();
+		//Play Menu
+		JFrame playMenu = new JFrame("Play Button");
+		playMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		playMenu.setPreferredSize(new Dimension(700, 500));
+		playMenu.setLocationRelativeTo(null);
+		playMenu.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 350, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 325));
+		JButton playButton = new JButton("BEGIN");
+		playButton.setFont(new Font("Courier", Font.BOLD, 120));
+		playButton.setForeground(new Color(71, 12, 1, 255));
+		playMenu.add(playButton);
+		playMenu.pack();
 		PlayBoolean play = new PlayBoolean();
-		menu.setVisible(true);
+		playMenu.setVisible(true);
+		
+		//Settings Menu
+		JFrame settingsMenu = new JFrame("Settings Button");
+		settingsMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		settingsMenu.setPreferredSize(new Dimension(400, 300));
+		settingsMenu.setLocationRelativeTo(null);
+		settingsMenu.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 + 350, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 225));
+		JButton settingsButton = new JButton("Settings");
+		settingsButton.setFont(new Font("Courier", Font.BOLD, 60));
+		settingsMenu.add(settingsButton);
+		settingsMenu.pack();
+		settingsMenu.setVisible(true);
 		
 		//Scores
 		JFrame highScores = new JFrame("High Scores");
@@ -46,7 +58,7 @@ public class Menus {
 		highScores.setLocationRelativeTo(null);
 		highScores.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 200, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 + 250));
 		highScores.setVisible(true);
-		JLabel currHighScores = new JLabel("<html>High Score: 0pts | phase 0<br> All Time High Score: " + highestScore + "pts | phase " + highestPhase + "<html>", SwingConstants.CENTER);
+		JLabel currHighScores = new JLabel("<html>Session High Score: 0pts | phase 0<br> All Time High Score: " + highestScore + "pts | phase " + highestPhase + "<html>", SwingConstants.CENTER);
 		currHighScores.setFont(new Font("Courier", Font.BOLD, 20));
 		highScores.add(currHighScores);
 		
@@ -71,26 +83,32 @@ public class Menus {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				playButton.setFont(new Font("Courier", Font.BOLD, 15));
+				playButton.setFont(new Font("Courier", Font.BOLD, 140));
+				playButton.setForeground(new Color(133, 22, 0, 255));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				playButton.setFont(new Font("Courier", Font.BOLD, 12));
+				playButton.setFont(new Font("Courier", Font.BOLD, 120));
+				playButton.setForeground(new Color(71, 12, 1, 255));
 			}
 		});
+		
+		
 		while (true) {
 			if (play.isPlaying()) {
-				menu.setVisible(false);
+				playMenu.setVisible(false);
+				settingsMenu.setVisible(false);
 				highScores.setVisible(false);
 				try {
 				lastPlay.setVisible(false);
 				} catch (Exception e) {}
 				lastPlay = Game.playGame();
 				play.endPlay();
-				menu.setVisible(true);
+				playMenu.setVisible(true);
+				settingsMenu.setVisible(true);
 				highScores.setVisible(true);
-				currHighScores.setText("<html>High Score: " + score + "pts | phase "+ phase + "<br> All Time High Score: " + highestScore + "pts | phase " + highestPhase + "<html>");
+				currHighScores.setText("<html>Session High Score: " + score + "pts | phase "+ phase + "<br> All Time High Score: " + highestScore + "pts | phase " + highestPhase + "<html>");
 			}
 			try {
 				Thread.sleep(100);

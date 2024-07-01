@@ -72,7 +72,7 @@ public class Game{
 				}
 				//Final score counter update
 				scoreCounter.setSize(400, 100);
-				scoreCounter.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 200, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 250));
+				scoreCounter.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 200, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 450));
 				scoreDisplay.setText("GAME OVER!!!!!    | Final Score: " + score + " | Final Phase: " + phase);
 				Menus.checkNewScore(score, phase);
 				return scoreCounter;
