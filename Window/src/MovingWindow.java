@@ -3,10 +3,10 @@ import java.awt.*;
 
 public class MovingWindow {
 
-	public static final int RIGHT_EDGE_OF_SCREEN = 2560;
+	public static final int RIGHT_EDGE_OF_SCREEN = (int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth());
 	public static final int LEFT_EDGE_OF_SCREEN = 0;
 	public static final int TOP_EDGE_OF_SCREEN = 0;
-	public static final int BOTTOM_EDGE_OF_SCREEN = 1440;
+	public static final int BOTTOM_EDGE_OF_SCREEN = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 	
 	protected JFrame window;
 	private int length;
@@ -18,16 +18,17 @@ public class MovingWindow {
 		JFrame window = new JFrame("NEWM");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setLocationRelativeTo(null);
-		
+		window.getContentPane().setBackground(Color.RED);
 		window.setSize(length, width);
-		JLabel text = new JLabel("DONT TOUCH", SwingConstants.CENTER);
-		text.setFont(new Font("Courier", Font.BOLD, 60));
-		window.getContentPane().add(text, BorderLayout.CENTER);
 		this.window = window;
 		
 		this.length = length;
 		this.width = width;
 		this.speed = speed;
+	}
+	
+	public static int screenSizeChange() {
+		return (int)(Math.random() * 500 + 100);
 	}
 	
 	public void spawnWindow() {
@@ -54,11 +55,19 @@ public class MovingWindow {
 		return length;
 	}
 	
+	public void setLength(int length) {
+		this.length = length;
+	}
+	
 	public int getWidth() {
 		return width;
 	}
 	
 	public void setWidth(int width) {
 		this.width = width;
+	}
+	
+	public void changeSize(int changing, int constant) {
+		
 	}
 }

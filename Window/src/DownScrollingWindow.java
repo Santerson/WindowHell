@@ -1,14 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class LeftScrollingWindow extends MovingWindow {
+public class DownScrollingWindow extends MovingWindow {
 	
 	//Instance data
 	private int speed;
 	private int x;
 	private int y;
 	
-	public LeftScrollingWindow(int scrollSpeed, int length, int width) {
+	public DownScrollingWindow(int scrollSpeed, int length, int width) {
 		super(length, width, scrollSpeed);
 		speed = scrollSpeed;
 		spawnWindow();
@@ -23,23 +23,23 @@ public class LeftScrollingWindow extends MovingWindow {
 	}
 	
 	public void spawnWindow() {
-		super.setWidth((int)(Math.random() * 500 + 200));
-		int randomY = (int)(Math.random() * (MovingWindow.BOTTOM_EDGE_OF_SCREEN - 200));
-		this.window.setLocation(MovingWindow.RIGHT_EDGE_OF_SCREEN, randomY);
+		super.setLength((int)(Math.random() * 500 + 200));
+		int randomX = (int)(Math.random() * (MovingWindow.RIGHT_EDGE_OF_SCREEN - 200));
+		this.window.setLocation(randomX, TOP_EDGE_OF_SCREEN - 400);
 		this.window.setVisible(true);
-		x = MovingWindow.RIGHT_EDGE_OF_SCREEN;
-		y = randomY;
+		x = randomX;
+		y = TOP_EDGE_OF_SCREEN - 400;
 		super.window.setSize(super.getLength(), super.getWidth());
-		speed = (int)(Math.random() * 20 + 5);
+		speed = (int)(Math.random() * 10 + 5);
 	}
 	
 	public void scrollWindow() {
-		window.setLocation(new Point(x - speed, y));
-		x = x - speed;
+		window.setLocation(new Point(x, y + speed));
+		y = y + speed;
 	}
 	
 	public boolean touchingEdge() {
-		if (x <= LEFT_EDGE_OF_SCREEN - super.getWidth()) return true;
+		if (y >= BOTTOM_EDGE_OF_SCREEN + super.getWidth()) return true;
 		return false;
 	}
 
@@ -56,7 +56,7 @@ public class LeftScrollingWindow extends MovingWindow {
 		return false;
 	}
 	
-	public void changeSize(int width, int length) {
+	public void changeSize(int length, int width) {
 		super.setLength(length);
 		super.setWidth(width);
 	}
