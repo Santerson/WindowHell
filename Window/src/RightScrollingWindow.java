@@ -25,7 +25,7 @@ public class RightScrollingWindow extends MovingWindow {
 	public void spawnWindow(int score) {
 		int randomY = (int)(Math.random() * (MovingWindow.BOTTOM_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(MovingWindow.LEFT_EDGE_OF_SCREEN - super.getWidth(), randomY);
-		this.window.setVisible(true);//
+		this.window.setVisible(true);
 		this.window.setBackground(super.COLORS[score]);
 		x = MovingWindow.LEFT_EDGE_OF_SCREEN - super.getLength();
 		y = randomY;
