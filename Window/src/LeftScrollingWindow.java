@@ -33,6 +33,8 @@ public class LeftScrollingWindow extends MovingWindow {
 		speed = calcSpeed(score);
 	}
 	
+	//
+	
 	public void scrollWindow() {
 		window.setLocation(new Point(x - speed, y));
 		x = x - speed;
