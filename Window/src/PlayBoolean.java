@@ -1,9 +1,9 @@
 
-public class temp {
+public class PlayBoolean {
 	
 	private boolean playing;
 	
-	public temp() {
+	public PlayBoolean() {
 		playing =  false;
 	}
 	

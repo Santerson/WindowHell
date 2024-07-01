@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Game{
 	
-	public static void playGame() {
+	public static JFrame playGame() {
 		ArrayList<MovingWindow> windows = new ArrayList<MovingWindow>(); //arraylist to store all windows on screen
 		boolean ded = false; //checks whether the game is lost
 		int score = 0; //score
@@ -70,6 +70,7 @@ public class Game{
 				//Final score counter update
 				scoreCounter.setSize(400, 100);
 				scoreDisplay.setText("U SUCK LAMOOOOO GET GUD SCRUB | Final Score: " + score);
+				return scoreCounter;
 	}
 
 }

@@ -22,7 +22,7 @@ public class DownScrollingWindow extends MovingWindow {
 		return y;
 	}
 	
-	public void spawnWindow() {
+	public void spawnWindow(int score) {
 		super.setLength((int)(Math.random() * 500 + 200));
 		int randomX = (int)(Math.random() * (MovingWindow.RIGHT_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(randomX, TOP_EDGE_OF_SCREEN - 400);

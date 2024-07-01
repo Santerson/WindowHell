@@ -22,7 +22,7 @@ public class LeftScrollingWindow extends MovingWindow {
 		return y;
 	}
 	
-	public void spawnWindow() {
+	public void spawnWindow(int score) {
 		super.setWidth((int)(Math.random() * 500 + 200));
 		int randomY = (int)(Math.random() * (MovingWindow.BOTTOM_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(MovingWindow.RIGHT_EDGE_OF_SCREEN, randomY);
