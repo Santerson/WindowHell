@@ -11,12 +11,16 @@ public class Game{
 	
 	public static int gamePhase;
 	
-	public static JFrame playGame() {
+	public static JFrame playGame(){
+		return playGame(0);
+	}
+	
+	public static JFrame playGame(int startingPhase) {
 		ArrayList<MovingWindow> windows = new ArrayList<MovingWindow>(); //arraylist to store all windows on screen
 		boolean ded = false; //checks whether the game is lost
-		int score = 0; //score
-		int phase = 0;
-		gamePhase = 0;
+		int score = startingPhase * 1000; //score
+		int phase = startingPhase;
+		gamePhase = startingPhase;
 				
 		//creating windows
 		windows.add(new LeftScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
@@ -80,14 +84,14 @@ public class Game{
 				}
 			}
 			phase = (int)(score / 1000);
-			if (score % 1000 < 10 && phase != 0) {
+			if (score % 1000 < 10 && phase != startingPhase) {
 				if (!background.isVisible())background.setVisible(true);
 
 			}
 			else if (score % 1000 < 20){
 				if (background.isVisible())background.setVisible(false);
 				}
-			else if (score % 1000 < 30 && phase != 0) {
+			else if (score % 1000 < 30 && phase != startingPhase) {
 				if (!background.isVisible())background.setVisible(true);
 
 			}
@@ -98,7 +102,8 @@ public class Game{
 			try {
 				if (!ded) {
 					score++;
-					scoreDisplay.setText("Score: " + score + " | phase: " + phase);
+					if (startingPhase == 0) scoreDisplay.setText("Score: " + score + " | phase: " + phase);
+					else scoreDisplay.setText("<html>-Not submitted-<br> Score: " + score + " | phase: " + phase + "<html>");
 					scoreCounter.toFront();
 				}
 				Thread.sleep(5);
@@ -114,8 +119,9 @@ public class Game{
 		scoreCounter.setSize(800, 200);
 		scoreDisplay.setFont(new Font("Courier", Font.BOLD, 30));
 		scoreCounter.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 400, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 600));
-		scoreDisplay.setText("GAME OVER!!!!!    | Final Score: " + score + " | Final Phase: " + phase);
-		Menus.checkNewScore(score, phase);
+		if (startingPhase == 0) scoreDisplay.setText("GAME OVER!!!!!    | Final Score: " + score + " | Final Phase: " + phase);
+		else scoreDisplay.setText("<html> -Score not submitted- <br>GAME OVER!!!!!    | Final Score: " + score + " | Final Phase: " + phase +"<html>");
+		Menus.checkNewScore(score, phase, startingPhase);
 		return scoreCounter;
 	}
 }

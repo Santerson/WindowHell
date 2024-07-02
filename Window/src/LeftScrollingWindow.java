@@ -38,7 +38,7 @@ public class LeftScrollingWindow extends MovingWindow {
 	}
 	
 	public boolean touchingEdge() {
-		if (x <= LEFT_EDGE_OF_SCREEN - super.getWidth()) return true;
+		if (x <= LEFT_EDGE_OF_SCREEN - super.getLength()) return true;
 		return false;
 	}
 

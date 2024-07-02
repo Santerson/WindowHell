@@ -25,6 +25,9 @@ public class Menus {
 	
 	public static void main(String[] args) {	
 		
+		JankyInteger startingPhase = new JankyInteger(0);
+		PlayBoolean settingsOpen = new PlayBoolean();
+		
 		fetchHighScores();
 
 		//Play Menu
@@ -98,6 +101,42 @@ public class Menus {
 		quitMenu.setAlwaysOnTop(true);
 		quitMenu.setVisible(true);
 		
+		//Settings
+		
+		//Starting Phase: pannel
+		JFrame startingPhaseOverlay = new JFrame();
+		startingPhaseOverlay.setUndecorated(true);
+		startingPhaseOverlay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		startingPhaseOverlay.setSize(new Dimension(300, 150));
+		startingPhaseOverlay.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 500, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 400));
+		JLabel startingPhaseText2 = new JLabel("Raise the starting phase");
+		JLabel startingPhaseText = new JLabel("<html>WARNING: You cannot get high scores with this option enabled!<html>");
+		JPanel startingPhasePanel = new JPanel();
+		startingPhaseText.setFont(new Font("Courier", Font.BOLD, 25));
+		startingPhaseText2.setFont(new Font("Courier", Font.BOLD, 20));
+		startingPhasePanel.setLayout(new BoxLayout(startingPhasePanel, BoxLayout.Y_AXIS));
+		startingPhaseText.setVerticalAlignment(SwingConstants.TOP);
+		startingPhasePanel.add(startingPhaseText2);
+		startingPhasePanel.add(startingPhaseText);
+		startingPhaseOverlay.add(startingPhasePanel);
+		startingPhaseOverlay.setVisible(false);
+		
+		JFrame startingPhaseButtonBack = new JFrame();
+		setUpJFrame(startingPhaseButtonBack, new Dimension(300, 300), new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 500, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 200));
+		JButton startingPhaseButton = new JButton("Click to raise");
+		setUpJButton(startingPhaseButton, 40);
+		startingPhaseButtonBack.add(startingPhaseButton);
+		startingPhaseButtonBack.setVisible(false);
+		
+		JFrame startingPhaseIncrementedBack = new JFrame();
+		setUpJFrame(startingPhaseIncrementedBack, new Dimension(200, 100), new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 450, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 + 100));
+		JLabel startingPhaseIncremented = new JLabel("Starting phase: " + startingPhase);
+		startingPhaseIncremented.setFont(createFont(20));
+		startingPhaseIncrementedBack.add(startingPhaseIncremented);
+		startingPhaseIncrementedBack.setVisible(false);
+		
+
+		
 		JFrame lastPlay = null;
 		
 		playButton.addMouseListener(new MouseListener() {
@@ -139,7 +178,24 @@ public class Menus {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//play.play();
+				if (!settingsOpen.isPlaying()) {
+					playMenu.setVisible(false);
+					highScores.setVisible(false);
+					quitMenu.setVisible(false);
+					startingPhaseOverlay.setVisible(true);
+					startingPhaseButtonBack.setVisible(true);
+					settingsOpen.play();
+				}
+				else {
+					settingsOpen.endPlay();
+					playMenu.setVisible(true);
+					highScores.setVisible(true);
+					quitMenu.setVisible(true);
+					startingPhaseOverlay.setVisible(false);
+					startingPhaseButtonBack.setVisible(false);
+					startingPhaseIncrementedBack.setVisible(false);
+				}
+				
 			}
 			
 			
@@ -215,6 +271,40 @@ public class Menus {
 			}
 		});
 		
+		startingPhaseButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (!startingPhaseIncrementedBack.isVisible()) startingPhaseIncrementedBack.setVisible(true);
+				if (startingPhase.getInt() <= 3) startingPhase.setInt(startingPhase.getInt()+1);
+				else startingPhase.setInt(0);
+				if (startingPhase.getInt() > 0) startingPhaseIncremented.setText("Starting Phase: " + startingPhase);
+				else {
+					startingPhaseIncrementedBack.setVisible(false);
+				}
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+			
+		});
 		
 		while (true) {
 			if (play.isPlaying()) {
@@ -224,9 +314,9 @@ public class Menus {
 				instructionsMenu.setVisible(false);
 				quitMenu.setVisible(false);
 				try {
-				lastPlay.setVisible(false);
+					lastPlay.setVisible(false);
 				} catch (Exception e) {}
-				lastPlay = Game.playGame();
+				lastPlay = Game.playGame(startingPhase.getInt());
 				play.endPlay();
 				playMenu.setVisible(true);
 				settingsMenu.setVisible(true);
@@ -243,8 +333,8 @@ public class Menus {
 		}
 	}
 	
-	public static void checkNewScore(int newScore, int newPhase) {
-		if (score <= newScore) {
+	public static void checkNewScore(int newScore, int newPhase, int startingPhase) {
+		if (score <= newScore && startingPhase == 0) {
 			score = newScore;
 			phase = newPhase;
 			if (newScore > highestScore) {
@@ -267,5 +357,35 @@ public class Menus {
 		try (final DataInputStream dis = new DataInputStream(new FileInputStream(highPhaseFile))){
 			highestPhase = dis.readInt();
 		} catch(Exception e) {}
+	}
+	/**
+	 * sets up a JFrame's size and location
+	 * @param frame the JFrame
+	 * @param size the size of the JFrame, x and y
+	 * @param location where the JFrame is on the screen
+	 * @return a JPanel object to go with the JFrame
+	 */
+	public static JPanel setUpJFrame(JFrame frame, Dimension size, Point location) {
+		frame.setUndecorated(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(size);
+		frame.setLocation(location);
+		return new JPanel();
+	}
+	
+	public static JPanel setUpJFrame(JFrame frame) {
+		return setUpJFrame(frame, new Dimension(100, 100),  new Point(0, 0));
+	}
+	
+	public static void setUpJButton(JButton button, int size) {
+		button.setFont(new Font("Courier", Font.BOLD, 40));
+	}
+	
+	public static void setUpJButton(JButton button) {
+		setUpJButton(button, 20);
+	}
+	
+	public static Font createFont(int size) {
+		return new Font("Courier", Font.BOLD, size);
 	}
 }
