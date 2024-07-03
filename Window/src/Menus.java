@@ -105,13 +105,10 @@ public class Menus {
 		
 		//Starting Phase: pannel
 		JFrame startingPhaseOverlay = new JFrame();
-		startingPhaseOverlay.setUndecorated(true);
-		startingPhaseOverlay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		startingPhaseOverlay.setSize(new Dimension(300, 150));
-		startingPhaseOverlay.setLocation(new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 500, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 400));
+		JPanel startingPhasePanel = setUpJFrame(startingPhaseOverlay, new Dimension(300, 150), new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 500, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 400));
+		startingPhaseOverlay.setAlwaysOnTop(true);
 		JLabel startingPhaseText2 = new JLabel("Raise the starting phase");
 		JLabel startingPhaseText = new JLabel("<html>WARNING: You cannot get high scores with this option enabled!<html>");
-		JPanel startingPhasePanel = new JPanel();
 		startingPhaseText.setFont(new Font("Courier", Font.BOLD, 25));
 		startingPhaseText2.setFont(new Font("Courier", Font.BOLD, 20));
 		startingPhasePanel.setLayout(new BoxLayout(startingPhasePanel, BoxLayout.Y_AXIS));
@@ -123,6 +120,7 @@ public class Menus {
 		
 		JFrame startingPhaseButtonBack = new JFrame();
 		setUpJFrame(startingPhaseButtonBack, new Dimension(300, 300), new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 500, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 - 200));
+		startingPhaseButtonBack.setAlwaysOnTop(true);
 		JButton startingPhaseButton = new JButton("Click to raise");
 		setUpJButton(startingPhaseButton, 40);
 		startingPhaseButtonBack.add(startingPhaseButton);
@@ -130,6 +128,7 @@ public class Menus {
 		
 		JFrame startingPhaseIncrementedBack = new JFrame();
 		setUpJFrame(startingPhaseIncrementedBack, new Dimension(200, 100), new Point(MovingWindow.RIGHT_EDGE_OF_SCREEN / 2 - 450, MovingWindow.BOTTOM_EDGE_OF_SCREEN / 2 + 100));
+		startingPhaseIncrementedBack.setAlwaysOnTop(true);
 		JLabel startingPhaseIncremented = new JLabel("Starting phase: " + startingPhase);
 		startingPhaseIncremented.setFont(createFont(20));
 		startingPhaseIncrementedBack.add(startingPhaseIncremented);
@@ -281,7 +280,7 @@ public class Menus {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (!startingPhaseIncrementedBack.isVisible()) startingPhaseIncrementedBack.setVisible(true);
-				if (startingPhase.getInt() <= 3) startingPhase.setInt(startingPhase.getInt()+1);
+				if (startingPhase.getInt() <= highestPhase - 1) startingPhase.setInt(startingPhase.getInt()+1);
 				else startingPhase.setInt(0);
 				if (startingPhase.getInt() > 0) startingPhaseIncremented.setText("Starting Phase: " + startingPhase);
 				else {

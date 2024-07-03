@@ -22,6 +22,9 @@ public class Game{
 		int phase = startingPhase;
 		gamePhase = startingPhase;
 				
+		HorizontalWindow temp = new HorizontalWindow();
+		temp.spawnWindow();
+		
 		//creating windows
 		windows.add(new LeftScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
 		windows.add(new RightScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
@@ -61,19 +64,20 @@ public class Game{
 				gamePhase = phase;
 				current.scrollWindow();
 				if (current.touchingEdge()) {
-					if (current instanceof UpScrollingWindow) {
+					int randomWindow = (int)(Math.random() * 4);
+					if (randomWindow <= 0) {
 						windows.get(i).hideWindow();
 						windows.set(i, new UpScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
 					}
-					else if (current instanceof DownScrollingWindow) {
+					else if (randomWindow <= 1) {
 						windows.get(i).hideWindow();
 						windows.set(i, new DownScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
 					}
-					else if (current instanceof RightScrollingWindow) {
+					else if (randomWindow <= 2) {
 						windows.get(i).hideWindow();
 						windows.set(i, new RightScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
 					}
-					else if (current instanceof LeftScrollingWindow) {
+					else if (randomWindow <= 3) {
 						windows.get(i).hideWindow();
 						windows.set(i, new LeftScrollingWindow(MovingWindow.calcSpeed(phase), MovingWindow.screenSizeChange(), MovingWindow.screenSizeChange()));
 					}
@@ -115,6 +119,7 @@ public class Game{
 		for (MovingWindow current : windows) {
 			current.hideWindow();
 		}
+		background.setVisible(false);
 		//Final score counter update
 		scoreCounter.setSize(800, 200);
 		scoreDisplay.setFont(new Font("Courier", Font.BOLD, 30));
