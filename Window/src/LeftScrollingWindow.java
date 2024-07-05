@@ -26,7 +26,7 @@ public class LeftScrollingWindow extends MovingWindow {
 		int randomY = (int)(Math.random() * (MovingWindow.BOTTOM_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(MovingWindow.RIGHT_EDGE_OF_SCREEN, randomY);
 		this.window.setVisible(true);
-		this.window.setBackground(super.COLORS[score]);
+		this.window.setBackground(MovingWindow.COLORS[Game.gamePhase]);
 		x = MovingWindow.RIGHT_EDGE_OF_SCREEN;
 		y = randomY;
 		super.window.setSize(super.getLength(), super.getWidth());
@@ -42,11 +42,7 @@ public class LeftScrollingWindow extends MovingWindow {
 		return false;
 	}
 
-	public boolean checkForDead() {
-		PointerInfo a = MouseInfo.getPointerInfo();
-		Point mouse = a.getLocation(); //getting mouse position
-		int mousex = (int) mouse.getX();
-		int mousey = (int) mouse.getY();
+	public boolean checkForDead(int mousex, int mousey) {
 		//System.out.println("Mouse at " + mousex + ", " + mousey);
 
 		if (mousex >= x && mousex <= x + super.getLength() && mousey >= y && mousey <= y + super.getWidth()) {

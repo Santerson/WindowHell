@@ -4,9 +4,10 @@ import javax.swing.*;
 public class LineWindow {
 
 	protected JFrame window;
-	private int x;
+	private int x = 0;
 	private int y;
-	private int cooldown;
+	private int height;
+	private int cooldown = -15000;
 	
 	public LineWindow(int x, int y) {
 		JFrame window = new JFrame();
@@ -34,12 +35,28 @@ public class LineWindow {
 		this.y = y;
 	}
 	
-	public int cooldown() {
+	public int getHeight() {
+		return height;
+	}
+	
+	public void setHeight(int y) {
+		this.height = y;
+	}
+	
+	public int getCooldown() {
 		return cooldown;
 	}
 	
 	public void setCooldown(int set) {
 		cooldown = set;
+	}
+	
+	public void setBackground(Color color) {
+		window.setBackground(color);
+	}
+	
+	public boolean checkForDead(int mousex, int mousey) {
+		return false;
 	}
 }
  

@@ -26,7 +26,7 @@ public class DownScrollingWindow extends MovingWindow {
 		int randomX = (int)(Math.random() * (MovingWindow.RIGHT_EDGE_OF_SCREEN - 200));
 		this.window.setLocation(randomX, TOP_EDGE_OF_SCREEN - super.getWidth());
 		this.window.setVisible(true);
-		this.window.setBackground(super.COLORS[score]);
+		this.window.setBackground(MovingWindow.COLORS[Game.gamePhase]);
 		x = randomX;
 		y = TOP_EDGE_OF_SCREEN - super.getWidth();
 		super.window.setSize(super.getLength(), super.getWidth());
@@ -42,11 +42,7 @@ public class DownScrollingWindow extends MovingWindow {
 		return false;
 	}
 
-	public boolean checkForDead() {
-		PointerInfo a = MouseInfo.getPointerInfo();
-		Point mouse = a.getLocation(); //getting mouse position
-		int mousex = (int) mouse.getX();
-		int mousey = (int) mouse.getY();
+	public boolean checkForDead(int mousex, int mousey) {
 		//System.out.println("Mouse at " + mousex + ", " + mousey);
 
 		if (mousex >= x && mousex <= x + super.getLength() && mousey >= y && mousey <= y + super.getWidth()) {

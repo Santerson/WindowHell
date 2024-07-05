@@ -10,7 +10,7 @@ public class MovingWindow {
 	public static final int LEFT_EDGE_OF_SCREEN = 0;
 	public static final int TOP_EDGE_OF_SCREEN = 0;
 	public static final int BOTTOM_EDGE_OF_SCREEN = (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
-	public static final Color[] COLORS = new Color[] {new Color(255, 0, 0, 255), new Color(255, 166, 0, 255), new Color(255, 242, 0, 255), new Color(55, 255, 0, 255), new Color(0, 247, 255, 255), new Color(0, 42, 255, 255), new Color(162, 0, 255, 255), new Color(255, 0, 230, 255), new Color(102, 102, 102, 255), new Color(0, 0, 0, 255)};
+	public static final Color[] COLORS = new Color[] {new Color(255, 0, 0, 254), new Color(255, 166, 0, 254), new Color(255, 242, 0, 254), new Color(55, 255, 0, 254), new Color(0, 247, 255, 254), new Color(0, 42, 255, 254), new Color(162, 0, 255, 254), new Color(255, 0, 230, 254), new Color(102, 102, 102, 254), new Color(0, 0, 0, 254)};
 	public static final Color[] FADED_COLORS = new Color[] {new Color(255, 0, 0, 120), new Color(255, 166, 0, 120), new Color(255, 242, 0, 120), new Color(55, 255, 0, 120), new Color(0, 247, 255, 120), new Color(0, 42, 255, 120), new Color(162, 0, 255, 120), new Color(255, 0, 230, 120), new Color(102, 102, 102, 120), new Color(0, 0, 0, 120)};
 	
 	protected JFrame window;
@@ -48,7 +48,7 @@ public class MovingWindow {
 		return false;
 	}
 	
-	public boolean checkForDead() {
+	public boolean checkForDead(int mousex, int mousey) {
 		return false;
 	}
 	

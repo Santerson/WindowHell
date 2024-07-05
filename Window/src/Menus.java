@@ -183,6 +183,7 @@ public class Menus {
 					quitMenu.setVisible(false);
 					startingPhaseOverlay.setVisible(true);
 					startingPhaseButtonBack.setVisible(true);
+					if (startingPhase.getInt() != 0) startingPhaseIncrementedBack.setVisible(true);
 					settingsOpen.play();
 				}
 				else {
@@ -369,6 +370,7 @@ public class Menus {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(size);
 		frame.setLocation(location);
+		frame.setAlwaysOnTop(true);
 		return new JPanel();
 	}
 	
